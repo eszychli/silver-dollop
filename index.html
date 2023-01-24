@@ -1,1 +1,47 @@
-
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Auto Typing MP4 Generator</title>
+    <script src="whammy.js"></script>
+    <script src="FileSaver.js"></script>
+  </head>
+  <body>
+    <h1>Auto Typing Generator</h1>
+    <input type="text" id="inputText" placeholder="Enter text here"></input>
+    <button onclick="createMP4()">Generate</button>
+    <br>
+    <label for="fontSize">Font Size:</label>
+    <input type="number" id="fontSize" min="10" max="100" value="16">
+    <br>
+    <label for="fontColor">Font Color:</label>
+    <input type="color" id="fontColor" value="#000000">
+    <br>
+    <label for="speed">Speed:</label>
+    <input type="range" id="speed" min="50" max="1000" value="50" step="50">
+    <canvas id="canvas" style="display: block; border: 1px solid black; margin-top: 1rem; padding: 1rem; width:500px"></canvas>
+    <script>
+      function createMP4() {
+        var inputText = document.getElementById("inputText").value;
+        var encoder = new Whammy.Video();
+        var encoder = new Whammy.Video(25, 1000/25);
+        var canvas = document.getElementById("canvas");
+        canvas.width = 500;
+        var ctx = canvas.getContext("2d");
+        var fontSize = document.getElementById("fontSize").value;
+        var fontColor = document.getElementById("fontColor").value;
+        var speed = document.getElementById("speed").value;
+        ctx.font = fontSize + "px Segoe UI";
+        ctx.fillStyle = fontColor;
+        for (var i = 0; i < inputText.length; i++) {
+        setTimeout(function(i) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillText(inputText.substring(0, i + 1),10,30);
+            encoder.add(canvas);
+        }, i * speed, i);
+        }
+        var video = encoder.compile();
+        saveAs(video, "typing.mp4");
+      }
+    </script>
+  </body>
+</html>
