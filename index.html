@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
   <head>
     <title>Auto Typing MP4 Generator</title>
@@ -44,4 +44,35 @@
       }
     </script>
   </body>
+</html> -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Share to social media</title>
+  </head>
+  <body>
+<div>
+    <img src="https://ai.artofconnectors.com/PT/art/corner_slider/Dina-Goldstien22.jpg" id="image" alt="Example Image" />
+    <br>
+    <a href="#" id="social-share-button">Share this image</a>
+  </div>
+  <script>
+    var image = document.getElementById("image");
+    var shareButton = document.getElementById("social-share-button");
+    shareButton.onclick = function() {
+      if (navigator.share) {
+        navigator.share({
+          title: 'Example Image',
+          text: 'Check out this awesome image!',
+          url: image.src,
+        })
+          .then(() => console.log('Successful share'))
+          .catch((error) => console.log('Error sharing:', error));
+      } else {
+        alert("Your device doesn't support the Web Share API.");
+      }
+    };
+  </script>
+</body>
 </html>
